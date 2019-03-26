@@ -74,7 +74,6 @@ public class CoreArena implements Arena {
 		player.clearInventory();
 		player.getBukkitPlayer().getInventory().setItem(0, game.getClassManager().getClassSelector());
 		Bukkit.getScheduler().runTaskLater(game, () -> game.getClassManager().openGUI(player), 1L);
-		player.resetScore();
 		player.setArena(this);
 		players.add(player);
 		Bukkit.getServer().getPluginManager().callEvent(new GameJoinEvent(game, this, player));
@@ -86,6 +85,8 @@ public class CoreArena implements Arena {
 		scoreboard.setBoard(player);
 
 		game.getArenaManager().getMenu().update();
+
+		Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinArenaEvent(game, this, player));
 		return true;
 	}
 
@@ -93,11 +94,12 @@ public class CoreArena implements Arena {
 	public void removePlayer(GamePlayer player) {
 		if (!this.players.contains(player)) return;
 
+		Bukkit.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(game, this, player));
+
 		player.restoreInventory();
 		player.teleport(Settings.getLobby());
 
 		player.setArena(null);
-		player.resetScore();
 		player.resetTeam();
 		player.heal();
 		player.getBukkitPlayer().setFoodLevel(20);

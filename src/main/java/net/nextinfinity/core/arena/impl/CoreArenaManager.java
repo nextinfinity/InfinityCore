@@ -79,7 +79,7 @@ public class CoreArenaManager implements ArenaManager {
 			String internalName = schem.getName().toLowerCase().split("\\.")[0];
 			try {
 				schematics.put(internalName, ClipboardFormat.findByFile(schem).load(schem));
-			} catch (IOException e) {
+			} catch (Exception e) {
 				Bukkit.getLogger().log(Level.WARNING, "Unable to load schematic " + schem.getName() +
 						"If this is a valid schematic, please report this issue on Spigot.");
 				e.printStackTrace();
@@ -116,7 +116,7 @@ public class CoreArenaManager implements ArenaManager {
 	@Override
 	public boolean createSchematic(GamePlayer player, String name) {
 		File file = new File(game.getDataFolder().getAbsolutePath() + File.separator + "schematics" +
-				File.separator + name + ".structure");
+				File.separator + name + ".nbt");
 		if (file.exists()) {
 			return false;
 		}
@@ -131,7 +131,6 @@ public class CoreArenaManager implements ArenaManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		loadArenas();
 		return true;
 	}
 
@@ -212,11 +211,11 @@ public class CoreArenaManager implements ArenaManager {
 		WorldCreator creator = WorldCreator.name("arena-" + count++).generator(new ArenaChunkGenerator());
 		World world = AsyncWorld.create(creator).getBukkitWorld();
 		world.setSpawnFlags(false, false);
-		world.setSpawnLocation(0, 100, 0);
+		world.setSpawnLocation(0, 200, 0);
 		world.setKeepSpawnInMemory(false);
 		world.setAutoSave(false);
 		try {
-			schematics.get(name).paste(new BukkitWorld(world), new Vector(0, 0, 0), false, false, null);
+			schematics.get(name).paste(new BukkitWorld(world), new Vector(0, 100, 0), false, false, null);
 		} catch (Exception e) {
 			Bukkit.getLogger().log(Level.SEVERE, "Error pasting schematic for arena " + name.toUpperCase() + "!" +
 					"If this is a valid schematic, please report this issue on Spigot.");

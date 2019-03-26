@@ -23,6 +23,7 @@ public class CreateArena implements Executor {
 			String name = ArgCombiner.combineArgs(args, 0);
 			if (game.getArenaManager().createSchematic(player, name)) {
 				player.sendMessage(Settings.getSecondary() + "Created arena!");
+				game.getArenaManager().loadArenas();
 			} else {
 				player.sendMessage(Settings.getError() + "Unable to create arena! Check your selection.");
 			}

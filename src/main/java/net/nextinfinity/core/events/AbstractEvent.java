@@ -21,7 +21,7 @@ public abstract class AbstractEvent extends Event {
      * @param game the game which is running
      * @param arena the arena which the event occured in
      */
-    public AbstractEvent(Game game, Arena arena) {
+    AbstractEvent(Game game, Arena arena) {
         this.game = game;
         this.arena = arena;
     }
