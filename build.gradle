@@ -1,0 +1,52 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+group = 'net.nextinfinity'
+version = coreVersion
+defaultTasks "jar"
+
+repositories {
+    mavenLocal()
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    maven { url "http://ci.athion.net/job/FAWE-1.13/ws/mvn/" }
+    maven { url "http://maven.sk89q.com/artifactory/repo" }
+    maven { url 'https://jitpack.io' }
+    maven { url 'http://nexus.hc.to/content/repositories/pub_releases' }
+}
+
+dependencies {
+    compile(group: 'org.spigotmc', name: 'spigot-api', version: '1.13.2-R0.1-SNAPSHOT')
+    compile(group: 'com.github.tr7zw.Item-NBT-API', name: 'item-nbt-api', version: '17ac2d7ebd')
+    compile(group: 'com.boydti', name: 'fawe-api', version: 'latest')
+    compile(group: 'com.boydti', name: 'fawe-bukkit', version: 'latest')
+    compile(group: 'net.milkbowl.vault', name: 'VaultAPI', version: '1.7')
+}
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            "coreVersion": project.property("coreVersion")
+    ]
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url = "https://mymavenrepo.com/repo/nI80Ss96CF1nC92pr8xN"
+            credentials {
+                username "myMavenRepo"
+                password "craftathon"
+            }
+        }
+    }
+}
+
