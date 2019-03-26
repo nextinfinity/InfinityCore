@@ -15,6 +15,7 @@ public class CoreTeam implements Team {
 	private ChatColor color = ChatColor.WHITE;
 	private final String name;
 	private final List<GamePlayer> players = new ArrayList<>();
+	private int score = 0;
 
 	public CoreTeam(String name) {
 		this.name = name;
@@ -82,10 +83,33 @@ public class CoreTeam implements Team {
 
 	@Override
 	public int getScore() {
-		int score = 0;
-		for (GamePlayer player : players) {
-			score += player.getScore();
-		}
 		return score;
+	}
+
+	@Override
+	public void setScore(int score) {
+		if (score > 0) {
+			this.score = score;
+		} else {
+			this.score = 0;
+		}
+	}
+
+	@Override
+	public void incrementScore(int increment) {
+		if (increment > 0) {
+			score += increment;
+		}
+	}
+
+	@Override
+	public void decrementScore(int decrement) {
+		if (decrement > 0) {
+			if (score > decrement) {
+				score -= decrement;
+			} else {
+				score = 0;
+			}
+		}
 	}
 }

@@ -99,32 +99,6 @@ public interface GamePlayer {
     void sendMessage(String message);
 
     /**
-     * Gets the player's current score.
-     *
-     * @return the player's score
-     */
-    int getScore();
-
-    /**
-     * Sets the player's current score.
-     *
-     * @param newScore the player's new score
-     */
-    void setScore(int newScore);
-
-    /**
-     * Increments the player's current score by the specified amount
-     *
-     * @param toAdd the amount to add to the player's current score
-     */
-    void incrementScore(int toAdd);
-
-    /**
-     * Resets the player's score to zero.
-     */
-    void resetScore();
-
-    /**
      * Gets the player's team. Returns null if the player is not in-game or if the game is a free-for-all
      *
      * @return the team the player is on, if there is one

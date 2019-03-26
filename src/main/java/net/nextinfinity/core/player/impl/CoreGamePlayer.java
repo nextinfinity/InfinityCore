@@ -21,7 +21,6 @@ public class CoreGamePlayer implements GamePlayer {
 	private final Player player;
 	private Arena arena;
 	private ItemStack[] inventory;
-	private int score = 0;
 	private Team team;
 
 	public CoreGamePlayer(Player player, Game game) {
@@ -108,29 +107,6 @@ public class CoreGamePlayer implements GamePlayer {
 	@Override
 	public void sendMessage(String message) {
 		player.sendMessage(Settings.getPrefix() + message);
-	}
-
-	@Override
-	public int getScore() {
-		return score;
-	}
-
-	@Override
-	public void setScore(int newScore) {
-		score = newScore;
-		if (arena != null) {
-			arena.getScoreboard().refreshScores();
-		}
-	}
-
-	@Override
-	public void incrementScore(int toAdd) {
-		score += toAdd;
-	}
-
-	@Override
-	public void resetScore(){
-		setScore(0);
 	}
 
 	@Override

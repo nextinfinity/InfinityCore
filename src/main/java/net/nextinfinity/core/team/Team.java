@@ -95,10 +95,31 @@ public interface Team {
     List<GamePlayer> getPlayers();
 
     /**
-     * Gets the score of the team. This is calculated as the combined score of all team members.
+     * Gets the score of the team.
      *
      * @return the score of the team
      */
     int getScore();
+
+    /**
+     * Sets the score of the team to a specific value.
+     *
+     * @param score the new score of the team
+     */
+    void setScore(int score);
+
+    /**
+     * Increases the score of the team by a certain amount.
+     *
+     * @param increment the amount to increase by
+     */
+    void incrementScore(int increment);
+
+    /**
+     * Decreases the score of the team by a certain amount.
+     *
+     * @param decrement the amount to decrease by
+     */
+    void decrementScore(int decrement);
 
 }
