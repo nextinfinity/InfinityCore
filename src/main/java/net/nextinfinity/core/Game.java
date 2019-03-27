@@ -93,6 +93,7 @@ public abstract class Game extends JavaPlugin {
 		Settings.setName(config.getString("text.name"));
 		Settings.setPrefix(ChatColor.translateAlternateColorCodes('&', config.getString("text.prefix"))
 				.replace("{NAME}", Settings.getName()));
+		Settings.setPermission(config.getString("text.permission"));
 		Settings.setPrimary(ChatColor.getByChar(config.getString("text.primary-color")));
 		Settings.setSecondary(ChatColor.getByChar(config.getString("text.secondary-color")));
 		Settings.setError(ChatColor.getByChar(config.getString("text.error-color")));

@@ -17,6 +17,7 @@ public class Settings {
 	private static ChatColor error;
 	private static String name;
 	private static String prefix;
+	private static String permission;
 	private static Location lobby;
 	private static boolean blockBreak;
 	private static boolean itemManage;
@@ -370,5 +371,23 @@ public class Settings {
 	 */
 	public static void setWinningEco(int winningEco) {
 		Settings.winningEco = winningEco;
+	}
+
+	/**
+	 * Gets the permission prefix for the game.
+	 *
+	 * @return the permission prefix
+	 */
+	public static String getPermission() {
+		return permission;
+	}
+
+	/**
+	 * Sets the permission prefix for the game.
+	 *
+	 * @param permission the new permission prefix
+	 */
+	public static void setPermission(String permission) {
+		Settings.permission = permission;
 	}
 }

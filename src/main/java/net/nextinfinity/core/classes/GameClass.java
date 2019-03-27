@@ -29,17 +29,11 @@ public interface GameClass {
 
     /**
      * Gets the permission required for access to the class in-game.
+     * This is [game permission].class.[class name with no spaces]
      *
      * @return the permission for the class
      */
     String getPermission();
-
-    /**
-     * Sets the permission for the class. This is set in class loading and usually should not be altered.
-     *
-     * @param permission the permission for the class
-     */
-    void setPermission(String permission);
 
     /**
      * Returns the item which is used to represent the class in the class selection GUI if the entity has access to the class.

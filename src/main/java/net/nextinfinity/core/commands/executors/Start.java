@@ -9,7 +9,7 @@ public class Start implements Executor {
 
     @Override
     public void executeCommand(GamePlayer player, String... args) {
-        if (!player.getBukkitPlayer().hasPermission("core.start")) {
+        if (!player.getBukkitPlayer().hasPermission(Settings.getPermission() + ".start")) {
             player.sendMessage(Settings.getError() + "You do not have permission to do that!");
             return;
         }

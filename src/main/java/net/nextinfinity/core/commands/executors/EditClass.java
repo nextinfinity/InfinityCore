@@ -16,7 +16,7 @@ public class EditClass implements Executor {
 
 	@Override
 	public void executeCommand(GamePlayer player, String... args) {
-		if (!player.getBukkitPlayer().hasPermission("core.admin")) {
+		if (!player.getBukkitPlayer().hasPermission(Settings.getPermission() + ".admin")) {
 			player.sendMessage(Settings.getError() + "You do not have permission to use that command!");
 		} else if (args.length == 0) {
 			player.sendMessage(Settings.getError() + "Specify the class name!");
