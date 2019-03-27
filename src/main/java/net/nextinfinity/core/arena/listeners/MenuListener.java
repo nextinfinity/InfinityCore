@@ -24,8 +24,7 @@ public class MenuListener implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (event.getClickedInventory().getName() != null &&
-			event.getClickedInventory().getName().equals("Arena Selection")) {
+		if (event.getClickedInventory() != null && event.getClickedInventory().getName().equals("Arena Selection")) {
 			ItemStack item = event.getCurrentItem();
 			if (item != null) {
 				if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
