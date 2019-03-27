@@ -72,6 +72,7 @@ public class CoreArenaManager implements ArenaManager {
 		arenas.clear();
 		schematics.clear();
 		File folder = new File(game.getDataFolder().getAbsolutePath() + File.separator + "schematics");
+		FileConfiguration arenaConfig = new ConfigManager(game, "arenas.yml").getConfig();
 		if (!folder.exists()) {
 			folder.mkdir();
 		}
@@ -84,7 +85,9 @@ public class CoreArenaManager implements ArenaManager {
 						"If this is a valid schematic, please report this issue on Spigot.");
 				e.printStackTrace();
 			}
-			arenas.put(internalName, new ArrayList<>());
+			if (arenaConfig.contains(internalName)) {
+				arenas.put(internalName, new ArrayList<>());
+			}
 		}
 		menu.reset();
 	}
