@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CoreGameClass implements GameClass {
@@ -61,6 +62,7 @@ public class CoreGameClass implements GameClass {
 		ItemMeta lockedMeta = clone.getItemMeta();
 		String name = ChatColor.stripColor(lockedMeta.getDisplayName());
 		lockedMeta.setDisplayName(ChatColor.DARK_GRAY + name);
+		lockedMeta.setLore(Collections.singletonList(ChatColor.GRAY + "LOCKED"));
 		clone.setItemMeta(lockedMeta);
 		NBTItem lockedNBT = new NBTItem(clone);
 		lockedNBT.setBoolean("unlocked", false);
