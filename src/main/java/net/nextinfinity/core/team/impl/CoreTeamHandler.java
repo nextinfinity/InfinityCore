@@ -32,7 +32,7 @@ public class CoreTeamHandler implements TeamHandler {
 					ChatColor.getByChar(teamConfig.getString(teamName + ".color")) : ChatColor.WHITE;
 			String prefix = teamConfig.isSet(teamName + ".prefix") ? teamConfig.getString(teamName + ".prefix") : "";
 			String suffix = teamConfig.isSet(teamName + ".suffix") ? teamConfig.getString(teamName + ".suffix") : "";
-			Team team = new CoreTeam(teamName.toLowerCase());
+			Team team = new CoreTeam(teamName.toLowerCase(), null);
 			team.setAmount(amount);
 			team.setColor(color);
 			team.setPrefix(prefix);
@@ -46,7 +46,7 @@ public class CoreTeamHandler implements TeamHandler {
 		List<Team> arenaTeams = new ArrayList<>();
 		if (teamData.size() > 0) {
 			for (Team baseTeam : teamData) {
-				Team team = new CoreTeam(baseTeam.getName());
+				Team team = new CoreTeam(baseTeam.getName(), arena);
 				team.setAmount(baseTeam.getAmount());
 				team.setColor(baseTeam.getColor());
 				team.setPrefix(baseTeam.getPrefix());
@@ -87,7 +87,7 @@ public class CoreTeamHandler implements TeamHandler {
 		} else {
 			List<Team> arenaTeams = teams.get(arena);
 			arena.getPlayers().forEach((player) -> {
-				Team playerTeam = new CoreTeam(player.getBukkitPlayer().getDisplayName());
+				Team playerTeam = new CoreTeam(player.getBukkitPlayer().getDisplayName(), arena);
 				player.setTeam(playerTeam);
 				arenaTeams.add(playerTeam);
 			});

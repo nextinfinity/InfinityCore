@@ -4,7 +4,7 @@ import net.nextinfinity.core.arena.Arena;
 import net.nextinfinity.core.player.GamePlayer;
 import net.nextinfinity.core.utils.Settings;
 
-public class Quit implements Executor {
+public class Leave implements Executor {
 
 	@Override
 	public void executeCommand(GamePlayer player, String... args) {
@@ -18,5 +18,5 @@ public class Quit implements Executor {
 		} else {
 			player.sendMessage(Settings.getError() + "You are not in-game!");
 		}
-	}
+}
 }

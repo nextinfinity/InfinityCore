@@ -59,7 +59,6 @@ public class CoreClassManager implements ClassManager {
             gameClass.setChestplate(Serializer.loadItem(config.getConfigurationSection("chestplate")));
             gameClass.setLeggings(Serializer.loadItem(config.getConfigurationSection("leggings")));
             gameClass.setBoots(Serializer.loadItem(config.getConfigurationSection("boots")));
-            gameClass.setPermission(config.getString("permission"));
             ItemStack invItem = Serializer.loadItem(config.getConfigurationSection("inv-item"));
             if (invItem != null) {
                 ItemMeta invMeta = invItem.getItemMeta();

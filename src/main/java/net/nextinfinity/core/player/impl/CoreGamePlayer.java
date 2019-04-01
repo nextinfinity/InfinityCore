@@ -100,6 +100,9 @@ public class CoreGamePlayer implements GamePlayer {
 
 	@Override
 	public boolean hasClass(GameClass gameClass) {
+		if (player.hasPermission(Settings.getPermission() + ".class.*")) {
+			return true;
+		}
 		String perm = gameClass.getPermission();
 		return perm == null || player.hasPermission(perm);
 	}

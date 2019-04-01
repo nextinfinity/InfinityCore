@@ -1,5 +1,6 @@
 package net.nextinfinity.core.team.impl;
 
+import net.nextinfinity.core.arena.Arena;
 import net.nextinfinity.core.player.GamePlayer;
 import net.nextinfinity.core.team.Team;
 import org.bukkit.ChatColor;
@@ -14,11 +15,13 @@ public class CoreTeam implements Team {
 	private int amount;
 	private ChatColor color = ChatColor.WHITE;
 	private final String name;
+	private final Arena arena;
 	private final List<GamePlayer> players = new ArrayList<>();
 	private int score = 0;
 
-	public CoreTeam(String name) {
+	public CoreTeam(String name, Arena arena) {
 		this.name = name;
+		this.arena = arena;
 	}
 
 	@Override
@@ -93,23 +96,16 @@ public class CoreTeam implements Team {
 		} else {
 			this.score = 0;
 		}
+		arena.getScoreboard().refreshScores();
 	}
 
 	@Override
 	public void incrementScore(int increment) {
-		if (increment > 0) {
-			score += increment;
-		}
+		setScore(score + increment);
 	}
 
 	@Override
 	public void decrementScore(int decrement) {
-		if (decrement > 0) {
-			if (score > decrement) {
-				score -= decrement;
-			} else {
-				score = 0;
-			}
-		}
+		setScore(score - decrement);
 	}
 }

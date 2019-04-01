@@ -23,8 +23,10 @@ public class CoreCommandHandler implements CommandHandler {
 
 	@Override
 	public void registerCommands() {
+		commands.put("help", new Help());
+
 		commands.put("join", new Join(game));
-		commands.put("quit", new Quit());
+		commands.put("leave", new Leave());
 		commands.put("spectate", new Spectate());
 		commands.put("start", new Start());
 
@@ -40,10 +42,14 @@ public class CoreCommandHandler implements CommandHandler {
 		if (sender instanceof Player) {
 			Player bukkitPlayer = (Player) sender;
 			GamePlayer player = game.getPlayerHandler().getPlayer(bukkitPlayer);
-			if (args.length > 0 && commands.containsKey(args[0].toLowerCase())) {
-				commands.get(args[0].toLowerCase()).executeCommand(player, Arrays.copyOfRange(args, 1, args.length));
+			if (sender.hasPermission(Settings.getPermission() + ".player")) {
+				if (args.length > 0 && commands.containsKey(args[0].toLowerCase())) {
+					commands.get(args[0].toLowerCase()).executeCommand(player, Arrays.copyOfRange(args, 1, args.length));
+				} else {
+					commands.get("help").executeCommand(player, "");
+				}
 			} else {
-				commands.get("help").executeCommand(player, "");
+				player.sendMessage(Settings.getError() + "You do not have permission to use " + Settings.getName());
 			}
 			return true;
 		} else {

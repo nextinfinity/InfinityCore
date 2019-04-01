@@ -1,6 +1,7 @@
 text:
   name: "Game"
   prefix: "[Game] "
+  permission: "game"
   primary-color: "6"
   secondary-color: "e"
   error-color: "c"

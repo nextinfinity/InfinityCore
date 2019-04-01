@@ -14,7 +14,7 @@ public class SetLobby implements Executor {
 
 	@Override
 	public void executeCommand(GamePlayer player, String... args) {
-		if (player.getBukkitPlayer().hasPermission("core.admin")) {
+		if (player.getBukkitPlayer().hasPermission(Settings.getPermission() + ".admin")) {
 			game.getArenaManager().setLobby(player.getBukkitPlayer().getLocation());
 			player.sendMessage(Settings.getSecondary() + "Set lobby!");
 		} else {
