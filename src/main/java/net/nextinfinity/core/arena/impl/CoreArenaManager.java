@@ -3,9 +3,10 @@ package net.nextinfinity.core.arena.impl;
 import com.boydti.fawe.bukkit.wrapper.AsyncWorld;
 import com.boydti.fawe.object.FawePlayer;
 import com.boydti.fawe.object.schematic.Schematic;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
+import com.sk89q.worldedit.extent.clipboard.io.BuiltInClipboardFormat;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 import net.nextinfinity.core.Game;
 import net.nextinfinity.core.arena.*;
@@ -14,12 +15,14 @@ import net.nextinfinity.core.utils.ConfigManager;
 import net.nextinfinity.core.utils.FileUtil;
 import net.nextinfinity.core.utils.Serializer;
 import net.nextinfinity.core.utils.Settings;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,7 +82,7 @@ public class CoreArenaManager implements ArenaManager {
 		for (File schem : folder.listFiles()) {
 			String internalName = schem.getName().toLowerCase().split("\\.")[0];
 			try {
-				schematics.put(internalName, ClipboardFormat.findByFile(schem).load(schem));
+				schematics.put(internalName, ClipboardFormats.findByFile(schem).load(schem));
 			} catch (Exception e) {
 				Bukkit.getLogger().log(Level.WARNING, "Unable to load schematic " + schem.getName() +
 						"If this is a valid schematic, please report this issue on Spigot.");
@@ -130,7 +133,7 @@ public class CoreArenaManager implements ArenaManager {
 		}
 		Schematic schem = new Schematic(selection);
 		try {
-			schem.save(file, ClipboardFormat.STRUCTURE);
+			schem.save(file, BuiltInClipboardFormat.STRUCTURE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -176,6 +179,7 @@ public class CoreArenaManager implements ArenaManager {
 	}
 
 	private Arena createArena(String name) {
+		if (!arenas.containsKey(name)) return null;
 		World world = createWorld(name);
 		if (world == null) {
 			return null;
@@ -208,7 +212,6 @@ public class CoreArenaManager implements ArenaManager {
 	}
 
 	private World createWorld(String name) {
-		if (!arenas.containsKey(name)) return null;
 		//It seems 1.13 broke the generatorSettings method and I couldn't find details of the new implementation,
 		//so this generator workaround is courtesy of MiniDigger on spigotmc.org
 		WorldCreator creator = WorldCreator.name("arena-" + count++).generator(new ArenaChunkGenerator());
@@ -218,7 +221,7 @@ public class CoreArenaManager implements ArenaManager {
 		world.setKeepSpawnInMemory(false);
 		world.setAutoSave(false);
 		try {
-			schematics.get(name).paste(new BukkitWorld(world), new Vector(0, 100, 0), false, false, null);
+			schematics.get(name).paste(new BukkitWorld(world), BlockVector3.at(0, 100, 0), false, false, null);
 		} catch (Exception e) {
 			Bukkit.getLogger().log(Level.SEVERE, "Error pasting schematic for arena " + name.toUpperCase() + "!" +
 					"If this is a valid schematic, please report this issue on Spigot.");
