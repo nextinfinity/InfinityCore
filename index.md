@@ -1,2 +1,0 @@
-# MC Game Core Usage #
-
